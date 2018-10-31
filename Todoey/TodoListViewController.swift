@@ -10,7 +10,7 @@ import UIKit
 
 class TodoListViewController: UITableViewController {
 
-    let itemArray = ["Bananas","Apples","Pears"]
+    var itemArray = ["Bananas","Apples","Pears"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,38 @@ class TodoListViewController: UITableViewController {
         
     }
     
+    //
+    //  MARK - Add New Items
+    //  UIAlert with textfield when this button is clicked and append to end of array
+    //
     
+    @IBAction func addButtonPressed(_ sender: UIBarButtonItem) {
+        
+        var textField = UITextField()
+
+        let alert = UIAlertController(title: "Add New Todoey Item", message: "", preferredStyle: .alert)
+        
+        alert.addTextField { (alertTextField) in
+            alertTextField.placeholder = "Create new item"
+            textField = alertTextField
+        }
+        
+        let action = UIAlertAction(title: "Add Item", style: .default) { (action) in
+            //what happens once user clicks submit
+            print(textField.text)
+            
+          
+            self.itemArray.append(textField.text!)
+            self.tableView.reloadData()
+            
+            
+        }
+        
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+        
+    }
     
 }
 
